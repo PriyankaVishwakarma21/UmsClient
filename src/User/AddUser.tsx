@@ -5,7 +5,6 @@ import { User } from '../types/userInterface';
 import { createUser } from "../api/UserApi";
 
 const AddUser = (props: any) => {
-  console.log('props----> ', props)
   const { close } = props;
 
   const validationSchema = yup.object({
@@ -23,9 +22,8 @@ const AddUser = (props: any) => {
   const handleSubmit = async (values: User) => {
     try {
       const response = await createUser(values);
-      console.log('res===> ', response);
       if (response.status === 200) {
-        alert("User created successfully.");
+        props.addUserCallback(response.data);
       }
     } catch (error) {
       console.log('Error in handleSubmit AddUser: ', error);
